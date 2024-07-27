@@ -3,6 +3,7 @@
   --background-color: #ffffff;
   --primary-color: #ec1d24;
   --secondary-color: #000000;
+  --neutral-color: #AAAAAA;
   --font-weight-700: 700;
   --font-weight-500: 500;
   --font-weight-400: 400;
@@ -50,14 +51,10 @@ p {
   font-size: var(--font-size-sm);
 }
 
-@media (min-width: 1512px) {
-}
+@media (min-width: 1512px) {}
 
-@media (max-width: 1511px) and (min-width: 834px) {
-}
+@media (max-width: 1511px) and (min-width: 834px) {}
 
-@media (max-width: 834px) {
-}
+@media (max-width: 834px) {}
 
-@media (max-width: 393px) {
-}
+@media (max-width: 393px) {}
