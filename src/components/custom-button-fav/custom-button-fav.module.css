@@ -1,0 +1,16 @@
+.containerButton{
+  display: inline-flex;
+  background-color: transparent;
+  cursor: pointer;
+  border: 0;
+}
+
+.iconFilled {
+  fill: var(--primary-color);
+  stroke: var(--primary-color);
+}
+
+.iconOutlined {
+  fill: var(--secondary-color);
+  stroke: var(--background-color);
+}

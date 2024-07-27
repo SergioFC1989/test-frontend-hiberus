@@ -1,3 +1,4 @@
+import { CustomMarvelHeader } from "@/components/custom-marvel-header/custom-marvel-header";
 import type { Metadata } from "next";
 import { Roboto_Condensed } from "next/font/google";
 import "./globals.css";
@@ -16,7 +17,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={robotoCondensed.className}>{children}</body>
+      <body className={robotoCondensed.className}>
+        <CustomMarvelHeader>{children}</CustomMarvelHeader>
+      </body>
     </html>
   );
 }

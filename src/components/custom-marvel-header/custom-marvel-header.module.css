@@ -1,0 +1,30 @@
+.containerHeader {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--secondary-color);
+  padding: 16px 48px;
+}
+
+@media (max-width: 394px) {
+  .containerHeader {
+    padding: 16px;
+  }
+}
+
+.logo {
+  background-color: var(--primary-color);
+  padding: 4px;
+}
+
+.containerFav {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;  
+  align-items: center;
+}
+
+.totalFav {
+  color: var(--background-color);
+}
