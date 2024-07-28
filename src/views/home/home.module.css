@@ -6,6 +6,13 @@
   gap: 64px;
 }
 
+.search {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+}
+
 .characters {
   display: flex;
   flex-direction: row;

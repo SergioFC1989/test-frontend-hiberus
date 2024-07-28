@@ -10,21 +10,22 @@ export const Home = () => {
 
   return (
     <div className={styles.container}>
-      <CustomTextInputSearch
-        value={searchValue}
-        onChange={(e) => setSearchValue(e.target.value.toUpperCase())}
-      />
+      <div className={styles.search}>
+        <CustomTextInputSearch
+          value={searchValue}
+          onChange={(e) => setSearchValue(e.target.value.toUpperCase())}
+        />
+        <p>{filteredValue?.length} RESULTS</p>
+      </div>
       {isLoading ? (
         <h3>Loading...</h3>
       ) : (
         <div className={styles.characters}>
-          {filteredValue && filteredValue.length > 0 ? (
-            filteredValue?.map((character) => (
+          {filteredValue &&
+            filteredValue.length > 0 &&
+            filteredValue.map((character) => (
               <CustomCardCharacter key={character.id} data={character} />
-            ))
-          ) : (
-            <h3>No characters found</h3>
-          )}
+            ))}
         </div>
       )}
     </div>
