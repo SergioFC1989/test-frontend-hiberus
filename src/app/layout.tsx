@@ -1,4 +1,5 @@
 import { CustomLayout } from "@/components/custom-layout/custom-layout";
+import { AppConfigProvider } from "@/contexts/app-config-context";
 import type { Metadata } from "next";
 import { Roboto_Condensed } from "next/font/google";
 import "./globals.css";
@@ -18,7 +19,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={robotoCondensed.className}>
-        <CustomLayout>{children}</CustomLayout>
+        <AppConfigProvider>
+          <CustomLayout>{children}</CustomLayout>
+        </AppConfigProvider>
       </body>
     </html>
   );
