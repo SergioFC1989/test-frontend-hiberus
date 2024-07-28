@@ -1,5 +1,6 @@
 "use client";
 
+import { CustomCardCharacter } from "@/components/custom-card-character/custom-card-character";
 import { CustomTextInputSearch } from "@/components/custom-text-input-search/custom-text-input-search";
 import { useHome } from "@/hooks/useHome";
 import styles from "./home.module.css";
@@ -15,7 +16,13 @@ export const Home = () => {
         value={searchValue}
         onChange={(e) => setSearchValue(e.target.value)}
       />
-      {isLoading ? <h3>Loading</h3> : <h3>Termino de cargar los datos</h3>}
+      {isLoading && <h3>Loading...</h3>}
+      <div className={styles.characters}>
+        {(characters?.data.results?.length ?? 0) > 0 &&
+          characters?.data.results.map((character) => (
+            <CustomCardCharacter key={character.id} data={character} />
+          ))}
+      </div>
     </div>
   );
 };
