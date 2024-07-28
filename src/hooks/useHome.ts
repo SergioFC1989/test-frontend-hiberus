@@ -4,23 +4,45 @@ import { useCallback, useEffect, useState } from "react";
 
 export const useHome = () => {
   const { characters, setCharacters, isLoading, setIsLoading } = useAppConfig();
-  const [searchValue, setSearchValue] = useState("");
 
-  const handleCharacters = useCallback(async () => {
+  const [searchValue, setSearchValue] = useState("");
+  const [filteredValue, setFilteredValue] = useState(characters?.data.results);
+
+  const handleFetchCharacters = useCallback(async () => {
     try {
       setIsLoading(true);
       const response = await getCharacters();
       setCharacters(response);
     } catch (error) {
-      console.error(error);
+      return alert("Error to get characters");
     } finally {
       setIsLoading(false);
     }
   }, [setCharacters, setIsLoading]);
 
-  useEffect(() => {
-    handleCharacters();
-  }, [handleCharacters]);
+  const handleFilterCharacters = useCallback(() => {
+    if (searchValue) {
+      const filteredCharacters = characters?.data.results.filter((item) =>
+        item.name.toUpperCase().includes(searchValue.toUpperCase())
+      );
+      setFilteredValue(filteredCharacters);
+    } else {
+      setFilteredValue(characters?.data.results);
+    }
+  }, [characters?.data.results, searchValue]);
 
-  return { characters, setCharacters, searchValue, setSearchValue, isLoading };
+  useEffect(() => {
+    handleFilterCharacters();
+  }, [handleFilterCharacters]);
+
+  useEffect(() => {
+    handleFetchCharacters();
+  }, [handleFetchCharacters]);
+
+  return {
+    searchValue,
+    setSearchValue,
+    filteredValue,
+    isLoading
+  };
 };
