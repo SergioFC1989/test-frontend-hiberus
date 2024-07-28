@@ -21,6 +21,7 @@ export const CustomCardCharacter = ({ data }: CustomCardCharacterProps) => {
           <h4 className={styles.footerName}>{data.name.toUpperCase()}</h4>
           <CustomButtonFav isActive={false} width={12} height={12} />
         </div>
+        <div className={styles.corner}></div>
       </footer>
     </div>
   );
