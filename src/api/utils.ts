@@ -33,7 +33,9 @@ export const fetchData = async (url: string) => {
   const queryString = qs.stringify(params);
   const response = await fetch(`${URL_BASE}/${url}?${queryString}`, {
     cache: "force-cache",
-    next: { revalidate: 3600 }
+    headers: {
+      "Cache-Control": "public, max-age=3600, must-revalidate"
+    }
   });
 
   if (!response.ok) {
