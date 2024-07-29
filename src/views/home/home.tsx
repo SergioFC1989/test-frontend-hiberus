@@ -8,9 +8,7 @@ import styles from "./home.module.css";
 
 export const Home = () => {
   const { searchValue, setSearchValue, filteredValue, isLoading } = useHome();
-  const { handleSaveCharacterFav, isFavorite } = useFavoriteCharacters();
-
-  const validatedFilteredValue = filteredValue && filteredValue.length > 0;
+  const { handleSaveCharacterFav, charactersFav } = useFavoriteCharacters();
 
   return (
     <div className={styles.container}>
@@ -25,15 +23,22 @@ export const Home = () => {
         <h3>Loading...</h3>
       ) : (
         <div className={styles.characters}>
-          {validatedFilteredValue &&
-            filteredValue.map((character) => (
-              <CustomCardCharacter
-                key={character.id}
-                data={character}
-                isActive={isFavorite}
-                onClick={() => handleSaveCharacterFav(character)}
-              />
-            ))}
+          {filteredValue &&
+            filteredValue.length &&
+            filteredValue.map((character) => {
+              const isFav = !!charactersFav?.find(
+                (item) => item.id === character.id
+              );
+
+              return (
+                <CustomCardCharacter
+                  key={character.id}
+                  data={character}
+                  isActive={isFav}
+                  onClick={() => handleSaveCharacterFav(character)}
+                />
+              );
+            })}
         </div>
       )}
     </div>

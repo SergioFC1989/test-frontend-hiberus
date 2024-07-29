@@ -22,7 +22,7 @@ export const CustomLayout = ({ children }: CustomLayoutProps) => {
           width={122}
         />
         <div className={styles.containerFav}>
-          <CustomButtonFav isActive disabled width={24} height={22} />
+          <CustomButtonFav isActive width={24} height={22} />
           <h3 className={styles.totalFav}>{charactersFav?.length || 0}</h3>
         </div>
       </header>
