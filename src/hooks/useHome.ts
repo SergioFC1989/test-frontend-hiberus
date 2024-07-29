@@ -1,6 +1,6 @@
 import { getCharacters } from "@/api/actions";
 import { useAppConfig } from "@/contexts/app-config-context";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 export const useHome = () => {
   const { characters, setCharacters, isLoading, setIsLoading } = useAppConfig();
@@ -39,10 +39,10 @@ export const useHome = () => {
     handleFetchCharacters();
   }, [handleFetchCharacters]);
 
-  return {
-    searchValue,
-    setSearchValue,
-    filteredValue,
-    isLoading
-  };
+  const values = useMemo(
+    () => ({ searchValue, setSearchValue, filteredValue, isLoading }),
+    [searchValue, setSearchValue, filteredValue, isLoading]
+  );
+
+  return values;
 };

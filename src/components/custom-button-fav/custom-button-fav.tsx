@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import styles from "./custom-button-fav.module.css";
 
 interface CustomButtonFavProps {
@@ -15,13 +18,20 @@ export const CustomButtonFav = ({
   isActive = false,
   onClick
 }: CustomButtonFavProps) => {
-  const stylesIcon = isActive ? styles.iconFilled : styles.iconOutlined;
+  const [isFavorite, setIsFavorite] = useState(isActive);
+
+  const _onClick = () => {
+    setIsFavorite(!isFavorite);
+    onClick && onClick();
+  };
+
+  const stylesIcon = isFavorite ? styles.iconFilled : styles.iconOutlined;
 
   return (
     <button
       className={styles.containerButton}
       disabled={disabled}
-      onClick={onClick}
+      onClick={_onClick}
     >
       <svg
         className={stylesIcon}

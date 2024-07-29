@@ -1,6 +1,6 @@
 "use client";
 
-import { CharactersProps } from "@/types";
+import { Character, CharactersProps } from "@/types";
 import {
   createContext,
   Dispatch,
@@ -18,6 +18,8 @@ interface AppConfigContextProps {
   // setDetailCharacters: (detailCharacters: any) => void;
   isLoading: boolean;
   setIsLoading: Dispatch<SetStateAction<boolean>>;
+  charactersFav: Character[] | null;
+  setCharactersFav: Dispatch<SetStateAction<Character[] | null>>;
 }
 
 const AppConfigContext = createContext<AppConfigContextProps>({
@@ -26,17 +28,27 @@ const AppConfigContext = createContext<AppConfigContextProps>({
   // detailCharacters: [],
   // setDetailCharacters: (detailCharacters: any) => {},
   isLoading: false,
-  setIsLoading: () => {}
+  setIsLoading: () => {},
+  charactersFav: null,
+  setCharactersFav: () => {}
 });
 
 export const AppConfigProvider = ({ children }: { children: ReactNode }) => {
   const [characters, setCharacters] = useState<CharactersProps | null>(null);
   // const [detailCharacters, setDetailCharacters] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [charactersFav, setCharactersFav] = useState<Character[] | null>(null);
 
   const values = useMemo(
-    () => ({ characters, setCharacters, isLoading, setIsLoading }),
-    [characters, isLoading]
+    () => ({
+      characters,
+      setCharacters,
+      isLoading,
+      setIsLoading,
+      charactersFav,
+      setCharactersFav
+    }),
+    [charactersFav, characters, isLoading]
   );
 
   return (

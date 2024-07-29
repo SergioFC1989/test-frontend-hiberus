@@ -1,15 +1,16 @@
 "use client";
 
+import { useFavoriteCharacters } from "@/hooks/useFavoriteCharacters";
 import Image from "next/image";
 import { CustomButtonFav } from "../custom-button-fav/custom-button-fav";
 import styles from "./custom-layout.module.css";
 
 interface CustomLayoutProps {
   children: React.ReactNode;
-  totalFav?: number;
 }
 
-export const CustomLayout = ({ children, totalFav = 0 }: CustomLayoutProps) => {
+export const CustomLayout = ({ children }: CustomLayoutProps) => {
+  const { charactersFav } = useFavoriteCharacters();
   return (
     <main>
       <header className={styles.containerHeader}>
@@ -22,7 +23,7 @@ export const CustomLayout = ({ children, totalFav = 0 }: CustomLayoutProps) => {
         />
         <div className={styles.containerFav}>
           <CustomButtonFav isActive disabled width={24} height={22} />
-          <h3 className={styles.totalFav}>{totalFav}</h3>
+          <h3 className={styles.totalFav}>{charactersFav?.length || 0}</h3>
         </div>
       </header>
       <section className={styles.containerChildren}>{children}</section>

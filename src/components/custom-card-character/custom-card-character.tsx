@@ -5,9 +5,15 @@ import styles from "./custom-card-character.module.css";
 
 interface CustomCardCharacterProps {
   data: Character;
+  isActive: boolean;
+  onClick?: () => void;
 }
 
-export const CustomCardCharacter = ({ data }: CustomCardCharacterProps) => {
+export const CustomCardCharacter = ({
+  data,
+  isActive,
+  onClick
+}: CustomCardCharacterProps) => {
   const image = `${data.thumbnail.path}.${data.thumbnail.extension}`;
 
   return (
@@ -19,7 +25,12 @@ export const CustomCardCharacter = ({ data }: CustomCardCharacterProps) => {
       <footer className={styles.footer}>
         <div className={styles.elementsFooter}>
           <h4 className={styles.footerName}>{data.name.toUpperCase()}</h4>
-          <CustomButtonFav isActive={false} width={12} height={12} />
+          <CustomButtonFav
+            isActive={isActive}
+            width={16}
+            height={16}
+            onClick={onClick}
+          />
         </div>
         <div className={styles.corner}></div>
       </footer>
