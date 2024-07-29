@@ -1,0 +1,32 @@
+.container {
+  display: flex;
+  flex-direction: row;
+}
+
+.iconSearch {
+  position: absolute;
+  transform: translate(2px, 100%);
+  pointer-events: none;
+}
+
+.textInputSearch {
+  width: 100%;
+  height: 28px;
+  border: none;
+  border-bottom: 1px solid var(--secondary-color);
+  padding: 10px 32px;
+  font-size: var(--font-size-lg);
+  color: var(--secondary-color);
+  background-color: transparent;
+  transition: border 0.3s;
+}
+
+.textInputSearch:focus {
+  outline: none;
+  box-shadow: none;
+  border-bottom: 2px solid var(--secondary-color);
+}
+
+.textInputSearch::placeholder {
+  color: var(--neutral-color);
+}
