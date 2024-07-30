@@ -1,6 +1,6 @@
 import { Character } from "@/types";
 import Image from "next/image";
-import { CustomButtonFav } from "../custom-button-fav/custom-button-fav";
+import { CustomButtonFav } from "./custom-button-fav";
 import styles from "./custom-card-character.module.css";
 
 interface CustomCardCharacterProps {

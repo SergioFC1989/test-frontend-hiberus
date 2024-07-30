@@ -3,10 +3,18 @@ import { useAppConfig } from "@/contexts/app-config-context";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
 export const useHome = () => {
-  const { characters, setCharacters, isLoading, setIsLoading } = useAppConfig();
+  const {
+    characters,
+    setCharacters,
+    isLoading,
+    setIsLoading,
+    searchValue,
+    setSearchValue
+  } = useAppConfig();
 
-  const [searchValue, setSearchValue] = useState("");
-  const [filteredValue, setFilteredValue] = useState(characters?.data.results);
+  const [filteredCharacters, setFilteredCharacters] = useState(
+    characters?.data.results
+  );
 
   const handleFetchCharacters = useCallback(async () => {
     try {
@@ -25,9 +33,9 @@ export const useHome = () => {
       const filteredCharacters = characters?.data.results.filter((item) =>
         item.name.toUpperCase().includes(searchValue.toUpperCase())
       );
-      setFilteredValue(filteredCharacters);
+      setFilteredCharacters(filteredCharacters);
     } else {
-      setFilteredValue(characters?.data.results);
+      setFilteredCharacters(characters?.data.results);
     }
   }, [characters?.data.results, searchValue]);
 
@@ -40,8 +48,8 @@ export const useHome = () => {
   }, [handleFetchCharacters]);
 
   const values = useMemo(
-    () => ({ searchValue, setSearchValue, filteredValue, isLoading }),
-    [searchValue, setSearchValue, filteredValue, isLoading]
+    () => ({ searchValue, setSearchValue, filteredCharacters, isLoading }),
+    [searchValue, setSearchValue, filteredCharacters, isLoading]
   );
 
   return values;
