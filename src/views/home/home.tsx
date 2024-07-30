@@ -1,6 +1,7 @@
 "use client";
 
 import { CustomCardCharacter } from "@/components/custom-card-character/custom-card-character";
+import { CustomLoader } from "@/components/custom-loader/custom-loader";
 import { CustomTextInputSearch } from "@/components/custom-text-input-search/custom-text-input-search";
 import { useFavoriteCharacters } from "@/hooks/useFavoriteCharacters";
 import { useHome } from "@/hooks/useHome";
@@ -20,7 +21,7 @@ export const Home = () => {
         <p>{filteredValue?.length ?? 0} RESULTS</p>
       </div>
       {isLoading ? (
-        <h3>Loading...</h3>
+        <CustomLoader />
       ) : (
         <div className={styles.characters}>
           {filteredValue && filteredValue.length ? (
