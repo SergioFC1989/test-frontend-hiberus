@@ -17,12 +17,6 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 20px;
-}
-
-@media (min-width: 834px) {
-  .characters {
-    justify-content: flex-start;
-  }
 }

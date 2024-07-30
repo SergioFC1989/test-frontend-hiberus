@@ -18,6 +18,10 @@
   padding: 4px;
 }
 
+.link {
+  display: grid;
+}
+
 .containerFav {
   display: flex;
   flex-direction: row;
