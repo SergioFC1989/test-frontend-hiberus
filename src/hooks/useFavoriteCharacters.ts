@@ -1,10 +1,11 @@
+import { CHARACTER_LOCALSTORAGE_KEY } from "@/api/constants";
 import { useAppConfig } from "@/contexts/app-config-context";
 import { Character } from "@/types";
 import { useCallback, useEffect, useMemo } from "react";
 import { useCache } from "./useCache";
 
 export const useFavoriteCharacters = () => {
-  const { cache, handleSaveCache } = useCache("favoriteCharacters");
+  const { cache, handleSaveCache } = useCache(CHARACTER_LOCALSTORAGE_KEY);
   const { charactersFav, setCharactersFav } = useAppConfig();
   const _cache = cache as Character[];
 
