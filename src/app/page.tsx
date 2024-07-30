@@ -1,4 +1,6 @@
-import { Home } from "@/views/home/home";
+"use server";
+
+import { Home } from "@/views/home";
 
 const Page = () => <Home />;
 

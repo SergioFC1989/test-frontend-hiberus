@@ -18,8 +18,10 @@ interface AppConfigContextProps {
   // setDetailCharacters: (detailCharacters: any) => void;
   isLoading: boolean;
   setIsLoading: Dispatch<SetStateAction<boolean>>;
-  charactersFav: Character[] | null;
-  setCharactersFav: Dispatch<SetStateAction<Character[] | null>>;
+  favCharacters: Character[] | null;
+  setFavCharacters: Dispatch<SetStateAction<Character[] | null>>;
+  searchValue: string;
+  setSearchValue: Dispatch<SetStateAction<string>>;
 }
 
 const AppConfigContext = createContext<AppConfigContextProps>({
@@ -29,15 +31,18 @@ const AppConfigContext = createContext<AppConfigContextProps>({
   // setDetailCharacters: (detailCharacters: any) => {},
   isLoading: false,
   setIsLoading: () => {},
-  charactersFav: null,
-  setCharactersFav: () => {}
+  favCharacters: null,
+  setFavCharacters: () => {},
+  searchValue: "",
+  setSearchValue: () => {}
 });
 
 export const AppConfigProvider = ({ children }: { children: ReactNode }) => {
   const [characters, setCharacters] = useState<CharactersProps | null>(null);
   // const [detailCharacters, setDetailCharacters] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [charactersFav, setCharactersFav] = useState<Character[] | null>(null);
+  const [favCharacters, setFavCharacters] = useState<Character[] | null>(null);
+  const [searchValue, setSearchValue] = useState("");
 
   const values = useMemo(
     () => ({
@@ -45,10 +50,12 @@ export const AppConfigProvider = ({ children }: { children: ReactNode }) => {
       setCharacters,
       isLoading,
       setIsLoading,
-      charactersFav,
-      setCharactersFav
+      favCharacters,
+      setFavCharacters,
+      searchValue,
+      setSearchValue
     }),
-    [charactersFav, characters, isLoading]
+    [characters, isLoading, favCharacters, searchValue]
   );
 
   return (
