@@ -17,14 +17,13 @@ export const Home = () => {
           value={searchValue}
           onChange={(e) => setSearchValue(e.target.value.toUpperCase())}
         />
-        <p>{filteredValue?.length} RESULTS</p>
+        <p>{filteredValue?.length ?? 0} RESULTS</p>
       </div>
       {isLoading ? (
         <h3>Loading...</h3>
       ) : (
         <div className={styles.characters}>
-          {filteredValue &&
-            filteredValue.length &&
+          {filteredValue && filteredValue.length ? (
             filteredValue.map((character) => {
               const isFav = !!charactersFav?.find(
                 (item) => item.id === character.id
@@ -38,7 +37,10 @@ export const Home = () => {
                   onClick={() => handleSaveCharacterFav(character)}
                 />
               );
-            })}
+            })
+          ) : (
+            <></>
+          )}
         </div>
       )}
     </div>
