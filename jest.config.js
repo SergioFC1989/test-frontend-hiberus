@@ -11,10 +11,6 @@ const config = {
   coverageProvider: "v8",
   testEnvironment: "jsdom",
   setupFilesAfterEnv: ["<rootDir>/jest.setup.js"],
-  watchman: true,
-  transform: {
-    "^.+\\.[tj]sx?$": "babel-jest"
-  },
   moduleNameMapper: {
     "\\.(css|less|scss|sass)$": "identity-obj-proxy"
   }
