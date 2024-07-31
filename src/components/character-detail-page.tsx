@@ -36,7 +36,7 @@ export const CharacterDetailPage = ({
 
   return (
     <div className={styles.container}>
-      {!isLoading ? (
+      {isLoading ? (
         <CustomLoader color="light" />
       ) : (
         <div className={styles.frame}>
