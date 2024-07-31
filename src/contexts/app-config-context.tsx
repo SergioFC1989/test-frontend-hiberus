@@ -1,6 +1,11 @@
 "use client";
 
-import { Character, CharactersProps, DetailCharacterProps } from "@/types";
+import {
+  Character,
+  CharactersProps,
+  ComicPage,
+  DetailCharacterProps
+} from "@/types";
 import {
   createContext,
   Dispatch,
@@ -16,6 +21,8 @@ interface AppConfigContextProps {
   setCharacters: Dispatch<SetStateAction<CharactersProps | null>>;
   detailCharacter: DetailCharacterProps | null;
   setDetailCharacter: Dispatch<SetStateAction<DetailCharacterProps | null>>;
+  comics: ComicPage[] | [];
+  setComics: Dispatch<SetStateAction<ComicPage[] | []>>;
   favCharacters: Character[] | null;
   setFavCharacters: Dispatch<SetStateAction<Character[] | null>>;
   isLoading: boolean;
@@ -29,6 +36,8 @@ const AppConfigContext = createContext<AppConfigContextProps>({
   setCharacters: () => {},
   detailCharacter: null,
   setDetailCharacter: () => {},
+  comics: [],
+  setComics: () => {},
   favCharacters: null,
   setFavCharacters: () => {},
   isLoading: false,
@@ -41,6 +50,7 @@ export const AppConfigProvider = ({ children }: { children: ReactNode }) => {
   const [characters, setCharacters] = useState<CharactersProps | null>(null);
   const [detailCharacter, setDetailCharacter] =
     useState<DetailCharacterProps | null>(null);
+  const [comics, setComics] = useState<ComicPage[] | []>([]);
   const [favCharacters, setFavCharacters] = useState<Character[] | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [searchValue, setSearchValue] = useState("");
@@ -51,6 +61,8 @@ export const AppConfigProvider = ({ children }: { children: ReactNode }) => {
       setCharacters,
       detailCharacter,
       setDetailCharacter,
+      comics,
+      setComics,
       favCharacters,
       setFavCharacters,
       isLoading,
@@ -58,7 +70,7 @@ export const AppConfigProvider = ({ children }: { children: ReactNode }) => {
       searchValue,
       setSearchValue
     }),
-    [characters, detailCharacter, favCharacters, isLoading, searchValue]
+    [characters, comics, detailCharacter, favCharacters, isLoading, searchValue]
   );
 
   return (

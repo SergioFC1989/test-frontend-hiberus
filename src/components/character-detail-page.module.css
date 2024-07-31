@@ -53,7 +53,7 @@
   font-weight: normal;
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1280px) {
   .frame {
     padding: 0 25%;
   }

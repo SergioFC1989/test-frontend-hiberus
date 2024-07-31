@@ -1,12 +1,36 @@
 "use client";
 
-import { getDetailCharacter } from "@/api/actions";
+import { getComic, getDetailCharacter } from "@/api/actions";
 import { useAppConfig } from "@/contexts/app-config-context";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 export const useDetailCharacter = (id: string) => {
-  const { detailCharacter, setDetailCharacter, isLoading, setIsLoading } =
-    useAppConfig();
+  const {
+    detailCharacter,
+    setDetailCharacter,
+    comics,
+    setComics,
+    isLoading,
+    setIsLoading
+  } = useAppConfig();
+
+  const [isLoadingComic, setIsLoadingComic] = useState(true);
+
+  const handleImageComics = useCallback(async () => {
+    try {
+      detailCharacter?.data.results[0]?.comics.items.forEach(async (item) => {
+        setIsLoadingComic(true);
+        const response = await getComic(item.resourceURI);
+        const { path, extension } = response.data.results[0].thumbnail;
+        const thumbnail = `${path}.${extension}`;
+        setComics((prev) => [...prev, { name: item.name, thumbnail }]);
+      });
+    } catch (error) {
+      return alert("Error to get comics");
+    } finally {
+      setIsLoadingComic(false);
+    }
+  }, [detailCharacter?.data.results, setComics]);
 
   const handleFetchSingleCharacter = useCallback(async () => {
     try {
@@ -22,7 +46,21 @@ export const useDetailCharacter = (id: string) => {
 
   useEffect(() => {
     handleFetchSingleCharacter();
-  }, [handleFetchSingleCharacter]);
 
-  return { detailCharacter, isLoading };
+    return () => {
+      setDetailCharacter(null);
+      setIsLoading(true);
+    };
+  }, [handleFetchSingleCharacter, setDetailCharacter, setIsLoading]);
+
+  useEffect(() => {
+    handleImageComics();
+
+    return () => {
+      setComics([]);
+      setIsLoadingComic(true);
+    };
+  }, [handleImageComics, setComics]);
+
+  return { detailCharacter, comics, isLoading, isLoadingComic };
 };

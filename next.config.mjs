@@ -4,7 +4,7 @@ const nextConfig = {
     dirs: ["src"]
   },
   images: {
-    domains: ["i.annihil.us"]
+    domains: ["i.annihil.us", "gateway.marvel.com"]
   }
 };
 

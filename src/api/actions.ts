@@ -1,8 +1,12 @@
 "use server";
 
 import { unstable_cache as cache } from "next/cache";
-import { CharactersProps, DetailCharacterProps } from "../types";
-import { CHARACTER_DETAIL_CACHE_KEY, CHARACTERS_CACHE_KEY } from "./constants";
+import { CharactersProps, ComicProps, DetailCharacterProps } from "../types";
+import {
+  CHARACTER_COMIC_CACHE_KEY,
+  CHARACTER_DETAIL_CACHE_KEY,
+  CHARACTERS_CACHE_KEY
+} from "./constants";
 import { fetchData } from "./utils";
 
 export const getCharacters = cache(async () => {
@@ -16,4 +20,12 @@ export const getDetailCharacter = cache(
     return response;
   },
   [CHARACTER_DETAIL_CACHE_KEY]
+);
+
+export const getComic = cache(
+  async (url: string) => {
+    const response: ComicProps = await fetchData(url, false);
+    return response;
+  },
+  [CHARACTER_COMIC_CACHE_KEY]
 );

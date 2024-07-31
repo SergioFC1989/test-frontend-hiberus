@@ -10,6 +10,7 @@
   margin-inline-end: auto;
   transform: translateZ(0);
   margin: auto;
+  display: flex;
 }
 
 @keyframes mulShdSpin {
