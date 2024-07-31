@@ -21,7 +21,7 @@ export const CustomCornerCard = ({
 
   return (
     <div className={styles.container}>
-      <div className={styles.corner} ref={cornerRef}></div>
+      <div data-testid="corner" className={styles.corner} ref={cornerRef}></div>
     </div>
   );
 };
