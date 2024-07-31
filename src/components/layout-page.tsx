@@ -15,7 +15,7 @@ export const LayoutPage = ({ children }: CustomLayoutProps) => {
   return (
     <main>
       <header className={styles.containerHeader}>
-        <Link className={styles.link} href="/">
+        <Link data-testid="header-link" className={styles.link} href="/">
           <Image
             className={styles.logo}
             src="/image/logo-marvel.svg"

@@ -1,6 +1,11 @@
 "use client";
 
-import { Character, CharactersProps } from "@/types";
+import {
+  Character,
+  CharactersProps,
+  ComicPage,
+  DetailCharacterProps
+} from "@/types";
 import {
   createContext,
   Dispatch,
@@ -14,12 +19,14 @@ import {
 interface AppConfigContextProps {
   characters: CharactersProps | null;
   setCharacters: Dispatch<SetStateAction<CharactersProps | null>>;
-  // detailCharacters: null;
-  // setDetailCharacters: (detailCharacters: any) => void;
-  isLoading: boolean;
-  setIsLoading: Dispatch<SetStateAction<boolean>>;
+  detailCharacter: DetailCharacterProps | null;
+  setDetailCharacter: Dispatch<SetStateAction<DetailCharacterProps | null>>;
+  comics: ComicPage[] | [];
+  setComics: Dispatch<SetStateAction<ComicPage[] | []>>;
   favCharacters: Character[] | null;
   setFavCharacters: Dispatch<SetStateAction<Character[] | null>>;
+  isLoading: boolean;
+  setIsLoading: Dispatch<SetStateAction<boolean>>;
   searchValue: string;
   setSearchValue: Dispatch<SetStateAction<string>>;
 }
@@ -27,35 +34,43 @@ interface AppConfigContextProps {
 const AppConfigContext = createContext<AppConfigContextProps>({
   characters: null,
   setCharacters: () => {},
-  // detailCharacters: [],
-  // setDetailCharacters: (detailCharacters: any) => {},
-  isLoading: false,
-  setIsLoading: () => {},
+  detailCharacter: null,
+  setDetailCharacter: () => {},
+  comics: [],
+  setComics: () => {},
   favCharacters: null,
   setFavCharacters: () => {},
+  isLoading: false,
+  setIsLoading: () => {},
   searchValue: "",
   setSearchValue: () => {}
 });
 
 export const AppConfigProvider = ({ children }: { children: ReactNode }) => {
   const [characters, setCharacters] = useState<CharactersProps | null>(null);
-  // const [detailCharacters, setDetailCharacters] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [detailCharacter, setDetailCharacter] =
+    useState<DetailCharacterProps | null>(null);
+  const [comics, setComics] = useState<ComicPage[] | []>([]);
   const [favCharacters, setFavCharacters] = useState<Character[] | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
   const [searchValue, setSearchValue] = useState("");
 
   const values = useMemo(
     () => ({
       characters,
       setCharacters,
-      isLoading,
-      setIsLoading,
+      detailCharacter,
+      setDetailCharacter,
+      comics,
+      setComics,
       favCharacters,
       setFavCharacters,
+      isLoading,
+      setIsLoading,
       searchValue,
       setSearchValue
     }),
-    [characters, isLoading, favCharacters, searchValue]
+    [characters, comics, detailCharacter, favCharacters, isLoading, searchValue]
   );
 
   return (

@@ -1,7 +1,9 @@
 import { Character } from "@/types";
 import Image from "next/image";
+import Link from "next/link";
 import { CustomButtonFav } from "./custom-button-fav";
 import styles from "./custom-card-character.module.css";
+import { CustomCornerCard } from "./custom-corner-card";
 
 interface CustomCardCharacterProps {
   data: Character;
@@ -19,7 +21,9 @@ export const CustomCardCharacter = ({
   return (
     <div className={styles.container}>
       <section className={styles.image}>
-        <Image src={image} alt={data.name} width={175} height={175} />
+        <Link href={`/detail-character/${data.id}`}>
+          <Image src={image} alt={data.name} width={175} height={175} />
+        </Link>
       </section>
       <section className={styles.divider} />
       <footer className={styles.footer}>
@@ -32,7 +36,7 @@ export const CustomCardCharacter = ({
             onClick={onClick}
           />
         </div>
-        <div className={styles.corner}></div>
+        <CustomCornerCard />
       </footer>
     </div>
   );

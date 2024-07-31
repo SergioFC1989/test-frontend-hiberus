@@ -46,24 +46,3 @@
   color: var(--background-color);
   font-weight: var(--font-weight-400);
 }
-
-.corner {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 30px;
-  height: 30px;
-  background-color: var(--secondary-color);
-  clip-path: polygon(100% 0, 0 100%, 100% 100%);
-}
-
-.corner:after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 15px;
-  height: 15px;
-  background-color: var(--background-color);
-  clip-path: polygon(100% 0, 0 100%, 100% 100%);
-}

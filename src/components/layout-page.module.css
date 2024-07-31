@@ -7,7 +7,7 @@
   padding: 16px 48px;
 }
 
-@media (max-width: 394px) {
+@media (max-width: 560px) {
   .containerHeader {
     padding: 16px;
   }
@@ -31,17 +31,4 @@
 
 .totalFav {
   color: var(--background-color);
-}
-
-.containerChildren {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 0px 48px;
-}
-
-@media (max-width: 394px) {
-  .containerChildren {
-    padding: 0px 16px;
-  }
 }

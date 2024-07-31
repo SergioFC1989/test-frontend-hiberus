@@ -29,14 +29,17 @@ const params = {
  * @returns A promise that resolves to the fetched data.
  * @throws An error if the HTTP response is not successful.
  */
-export const fetchData = async (url: string) => {
+export const fetchData = async (url: string, hasUrlBase: boolean = true) => {
   const queryString = qs.stringify(params);
-  const response = await fetch(`${URL_BASE}/${url}?${queryString}`, {
-    cache: "force-cache",
-    headers: {
-      "Cache-Control": "public, max-age=3600, must-revalidate"
+  const response = await fetch(
+    `${hasUrlBase ? `${URL_BASE}/${url}?${queryString}` : `${url}?${queryString}`}`,
+    {
+      cache: "force-cache",
+      headers: {
+        "Cache-Control": "public, max-age=3600, must-revalidate"
+      }
     }
-  });
+  );
 
   if (!response.ok) {
     throw new Error(`HTTP error! status: ${response.status}`);
