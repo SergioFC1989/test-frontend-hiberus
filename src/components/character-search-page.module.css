@@ -26,3 +26,9 @@
   justify-content: flex-start;
   gap: 20px;
 }
+
+@media (max-width: 418px) {
+  .characters {
+    justify-content: center;
+  }
+}

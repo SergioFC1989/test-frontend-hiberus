@@ -18,15 +18,21 @@ export const useDetailCharacter = (id: string) => {
 
   const handleImageComics = useCallback(async () => {
     try {
-      detailCharacter?.data.results[0]?.comics.items.forEach(async (item) => {
-        setIsLoadingComic(true);
-        const response = await getComic(item.resourceURI);
-        const { path, extension } = response.data.results[0].thumbnail;
-        const thumbnail = `${path}.${extension}`;
-        setComics((prev) => [...prev, { name: item.name, thumbnail }]);
-      });
+      setIsLoadingComic(true);
+
+      const promises =
+        detailCharacter?.data.results[0]?.comics.items.map(async (item) => {
+          const response = await getComic(item.resourceURI);
+          const { path, extension } = response.data.results[0].thumbnail;
+          const thumbnail = `${path}.${extension}`;
+          return { name: item.name, thumbnail };
+        }) || [];
+
+      const comicsData = await Promise.all(promises);
+
+      setComics((prev) => [...prev, ...comicsData]);
     } catch (error) {
-      return alert("Error to get comics");
+      alert("Error to get comics");
     } finally {
       setIsLoadingComic(false);
     }
