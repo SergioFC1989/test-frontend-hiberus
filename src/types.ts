@@ -1,35 +1,22 @@
-export interface Category {
+export interface Resource {
   resourceURI: string;
   name: string;
+}
+
+export interface ResourceWithOptionalType extends Resource {
   type?: string;
 }
 
-export interface IndexedItem {
+export interface IndexedCollection<T extends Resource> {
   available: number;
   collectionURI: string;
-  items: Category[];
+  items: T[];
   returned: number;
 }
 
 export interface Thumbnail {
   path: string;
   extension: string;
-}
-
-export interface Comic {
-  resourceURI: string;
-  name: string;
-}
-
-export interface Story {
-  resourceURI: string;
-  name: string;
-  type: string;
-}
-
-export interface Event {
-  resourceURI: string;
-  name: string;
 }
 
 export interface Url {
@@ -44,15 +31,10 @@ export interface Character {
   modified: string;
   thumbnail: Thumbnail;
   resourceURI: string;
-  comics: IndexedItem;
-  series: IndexedItem;
-  stories: {
-    available: number;
-    collectionURI: string;
-    items: Story[];
-    returned: number;
-  };
-  events: IndexedItem;
+  comics: IndexedCollection<Resource>;
+  series: IndexedCollection<Resource>;
+  stories: IndexedCollection<ResourceWithOptionalType>;
+  events: IndexedCollection<Resource>;
   urls: Url[];
 }
 
@@ -72,4 +54,14 @@ export interface CharactersProps {
   attributionHTML: string;
   etag: string;
   data: ResponseData;
+}
+
+export interface DetailCharacterProps {
+  code: number;
+  status: string;
+  copyright: string;
+  attributionText: string;
+  attributionHTML: string;
+  data: ResponseData;
+  etag: string;
 }

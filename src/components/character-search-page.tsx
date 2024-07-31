@@ -33,7 +33,7 @@ export const CharacterSearchPage = ({
         <p>{results} RESULTS</p>
       </div>
       {isLoading ? (
-        <CustomLoader />
+        <CustomLoader color="dark" />
       ) : (
         <div className={styles.characters}>
           {filteredCharacters && filteredCharacters.length ? (

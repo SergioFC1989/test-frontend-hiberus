@@ -1,5 +1,5 @@
 .loader {
-  color: var(--secondary-color);
+  color: var(--color-loader);
   font-size: 10px;
   width: 1em;
   height: 1em;
@@ -7,8 +7,9 @@
   position: relative;
   text-indent: -9999em;
   animation: mulShdSpin 1.3s infinite linear;
+  margin-inline-end: auto;
   transform: translateZ(0);
-  margin: 24px;
+  margin: auto;
 }
 
 @keyframes mulShdSpin {
