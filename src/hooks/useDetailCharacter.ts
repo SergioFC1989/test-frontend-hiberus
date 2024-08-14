@@ -32,7 +32,7 @@ export const useDetailCharacter = (id: string) => {
 
       setComics((prev) => [...prev, ...comicsData]);
     } catch (error) {
-      alert("Error to get comics");
+      console.error("Error to get comics");
     } finally {
       setIsLoadingComic(false);
     }
@@ -44,7 +44,7 @@ export const useDetailCharacter = (id: string) => {
       const response = await getDetailCharacter(id);
       setDetailCharacter(response);
     } catch (error) {
-      return alert("Error to get single character");
+      console.error("Error to get single character");
     } finally {
       setIsLoading(false);
     }

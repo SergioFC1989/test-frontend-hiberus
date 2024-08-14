@@ -22,7 +22,7 @@ export const useHome = () => {
       const response = await getCharacters();
       setCharacters(response);
     } catch (error) {
-      return alert("Error to get characters");
+      console.error("Error to get characters");
     } finally {
       setIsLoading(false);
     }
