@@ -63,7 +63,7 @@
 @media (max-width: 1511px) and (min-width: 561px) {
   .container {
     height: 278px;
-    clip-path: polygon(50% 0%, 100% 0, 100% 35%, 100% 80%, 90% 100%, 50% 100%, 0 100%, 0% 70%, 0% 35%, 0 0)
+    clip-path: polygon(50% 0%, 100% 0, 100% 35%, 100% 80%, 94% 100%, 50% 100%, 0 100%, 0% 70%, 0% 35%, 0 0)
   }
 
   .frame {
