@@ -30,10 +30,6 @@ export const useCharacterInputSearch = () => {
       controllerRef.current.abort();
     }
 
-    if (!searchValue.length) {
-      setFilteredCharacters(characters);
-    }
-
     if (searchValue.length && e.key === "Enter") {
       try {
         setIsLoading(true);
@@ -42,7 +38,6 @@ export const useCharacterInputSearch = () => {
           `/api/get-filtered-characters?nameStartsWith=${searchValue.toLowerCase()}`,
           controllerRef.current?.signal
         );
-        console.log(response);
         setFilteredCharacters(response);
       } catch (error) {
         console.error("Error to get filtered characters");
@@ -51,6 +46,12 @@ export const useCharacterInputSearch = () => {
       }
     }
   };
+
+  useEffect(() => {
+    if (!searchValue.length) {
+      setFilteredCharacters(null);
+    }
+  }, [characters, searchValue.length, setFilteredCharacters]);
 
   useEffect(() => {
     return () => {

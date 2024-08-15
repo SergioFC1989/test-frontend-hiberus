@@ -1,7 +1,7 @@
 import { useAppConfig } from "@/contexts/app-config-context";
 import { CHARACTER_LOCALSTORAGE_KEY } from "@/lib/constants";
 import { Character } from "@/types";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect } from "react";
 import { useCache } from "./useCache";
 
 /**
@@ -9,12 +9,15 @@ import { useCache } from "./useCache";
  * @returns An object containing the favorite characters and a function to handle saving favorite characters.
  */
 export const useFavoriteCharacters = () => {
-  const { favCharacters, setFavCharacters, searchValue, setSearchValue } =
-    useAppConfig();
+  const {
+    favCharacters,
+    setFavCharacters,
+    filteredCharacters,
+    setFilteredCharacters,
+    searchValue,
+    isLoading
+  } = useAppConfig();
   const { cache, handleSaveCache } = useCache(CHARACTER_LOCALSTORAGE_KEY);
-
-  const [filteredFavCharacters, setFilteredFavCharacters] =
-    useState(favCharacters);
 
   const _cache = cache as Character[];
 
@@ -44,16 +47,11 @@ export const useFavoriteCharacters = () => {
     [_cache, handleSaveCache, setFavCharacters]
   );
 
-  const handleFilterFavCharacters = useCallback(() => {
-    if (searchValue) {
-      const filteredCharacters = favCharacters?.filter((item) =>
-        item.name.toUpperCase().includes(searchValue.toUpperCase())
-      );
-      setFilteredFavCharacters(filteredCharacters || null);
-    } else {
-      setFilteredFavCharacters(favCharacters);
+  useEffect(() => {
+    if (!searchValue.length) {
+      setFilteredCharacters(null);
     }
-  }, [favCharacters, searchValue]);
+  }, [favCharacters, searchValue.length, setFilteredCharacters]);
 
   useEffect(() => {
     if (_cache !== null && _cache.length > 0) {
@@ -61,26 +59,10 @@ export const useFavoriteCharacters = () => {
     }
   }, [_cache, setFavCharacters]);
 
-  useEffect(() => {
-    handleFilterFavCharacters();
-  }, [handleFilterFavCharacters]);
-
-  const values = useMemo(
-    () => ({
-      favCharacters,
-      handleSaveFavCharacter,
-      searchValue,
-      setSearchValue,
-      filteredFavCharacters
-    }),
-    [
-      favCharacters,
-      filteredFavCharacters,
-      handleSaveFavCharacter,
-      searchValue,
-      setSearchValue
-    ]
-  );
-
-  return values;
+  return {
+    favCharacters,
+    handleSaveFavCharacter,
+    filteredCharacters: filteredCharacters?.data.results,
+    isLoading
+  };
 };

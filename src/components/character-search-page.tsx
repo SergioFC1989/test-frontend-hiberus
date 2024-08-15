@@ -9,6 +9,7 @@ interface CharacterSearchPageProps {
   isLoading?: boolean;
   favCharacters: Character[] | null;
   filteredCharacters?: Character[] | null;
+  results?: number;
   onClickFav?: (character: Character) => void;
 }
 
@@ -17,12 +18,13 @@ export const CharacterSearchPage = ({
   isLoading,
   favCharacters,
   filteredCharacters,
+  results = 0,
   onClickFav
 }: CharacterSearchPageProps) => {
   return (
     <div className={styles.container}>
       <h2>{title}</h2>
-      <CharacterInputSearch />
+      <CharacterInputSearch results={results} />
       {isLoading ? (
         <CustomLoader color="dark" />
       ) : (

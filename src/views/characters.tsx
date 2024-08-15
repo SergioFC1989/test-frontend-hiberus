@@ -13,6 +13,7 @@ export const Characters = () => {
       isLoading={isLoading}
       favCharacters={favCharacters}
       filteredCharacters={filteredCharacters ?? characters}
+      results={filteredCharacters?.length ?? characters?.length}
       onClickFav={handleSaveFavCharacter}
     />
   );

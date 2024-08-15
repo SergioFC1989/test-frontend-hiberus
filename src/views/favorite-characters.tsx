@@ -6,20 +6,18 @@ import { useFavoriteCharacters } from "@/hooks/useFavoriteCharacters";
 export const FavoriteCharacters = () => {
   const {
     favCharacters,
-    filteredFavCharacters,
     handleSaveFavCharacter,
-    searchValue,
-    setSearchValue
+    filteredCharacters,
+    isLoading
   } = useFavoriteCharacters();
 
   return (
     <CharacterSearchPage
-      value={searchValue}
-      onChange={(e) => setSearchValue(e.target.value.toUpperCase())}
       title="FAVORITES"
-      results={filteredFavCharacters?.length ?? 0}
+      isLoading={isLoading}
       favCharacters={favCharacters}
-      filteredCharacters={filteredFavCharacters}
+      filteredCharacters={filteredCharacters ?? favCharacters}
+      results={filteredCharacters?.length ?? favCharacters?.length}
       onClickFav={handleSaveFavCharacter}
     />
   );

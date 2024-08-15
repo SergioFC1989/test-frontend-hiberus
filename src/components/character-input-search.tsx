@@ -2,14 +2,9 @@ import { useCharacterInputSearch } from "@/hooks/useCharacterInputSearch";
 import styles from "./character-input-search.module.css";
 import { CustomTextInputSearch } from "./custom-text-input-search";
 
-export const CharacterInputSearch = () => {
-  const {
-    isLoading,
-    searchValue,
-    setSearchValue,
-    handleFilterCharacters,
-    results
-  } = useCharacterInputSearch();
+export const CharacterInputSearch = ({ results }: { results: number }) => {
+  const { isLoading, searchValue, setSearchValue, handleFilterCharacters } =
+    useCharacterInputSearch();
 
   return (
     <div className={styles.search}>
