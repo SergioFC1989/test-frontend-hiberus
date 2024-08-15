@@ -3,11 +3,13 @@ import styles from "./custom-text-input-search.module.css";
 
 interface CustomTextInputSearchProps {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onKeyUp: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   value: string;
 }
 
 export const CustomTextInputSearch = ({
   onChange,
+  onKeyUp,
   value
 }: CustomTextInputSearchProps) => {
   return (
@@ -25,6 +27,7 @@ export const CustomTextInputSearch = ({
         placeholder="SEARCH A CHARACTER..."
         value={value}
         onChange={onChange}
+        onKeyUp={onKeyUp}
       />
     </div>
   );

@@ -8,10 +8,14 @@
 
 .comic {
   display: flex;
+  width: 100%;
   flex-direction: row;
-  flex-wrap: wrap;
+  overflow: auto;
   gap: 20px;
   align-items: center;
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary-color) white;
+  padding-bottom: 16px;
 }
 
 .cardComic {
@@ -38,9 +42,5 @@
 @media (max-width: 391px) {
   .container {
     align-items: center;
-  }
-
-  .comic {
-    justify-content: center;
   }
 }

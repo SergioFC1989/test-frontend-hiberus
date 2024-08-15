@@ -19,6 +19,8 @@ import {
 interface AppConfigContextProps {
   characters: CharactersProps | null;
   setCharacters: Dispatch<SetStateAction<CharactersProps | null>>;
+  filteredCharacters: CharactersProps | null;
+  setFilteredCharacters: Dispatch<SetStateAction<CharactersProps | null>>;
   detailCharacter: DetailCharacterProps | null;
   setDetailCharacter: Dispatch<SetStateAction<DetailCharacterProps | null>>;
   comics: ComicPage[] | [];
@@ -34,6 +36,8 @@ interface AppConfigContextProps {
 const AppConfigContext = createContext<AppConfigContextProps>({
   characters: null,
   setCharacters: () => {},
+  filteredCharacters: null,
+  setFilteredCharacters: () => {},
   detailCharacter: null,
   setDetailCharacter: () => {},
   comics: [],
@@ -48,6 +52,8 @@ const AppConfigContext = createContext<AppConfigContextProps>({
 
 export const AppConfigProvider = ({ children }: { children: ReactNode }) => {
   const [characters, setCharacters] = useState<CharactersProps | null>(null);
+  const [filteredCharacters, setFilteredCharacters] =
+    useState<CharactersProps | null>(null);
   const [detailCharacter, setDetailCharacter] =
     useState<DetailCharacterProps | null>(null);
   const [comics, setComics] = useState<ComicPage[] | []>([]);
@@ -59,6 +65,8 @@ export const AppConfigProvider = ({ children }: { children: ReactNode }) => {
     () => ({
       characters,
       setCharacters,
+      filteredCharacters,
+      setFilteredCharacters,
       detailCharacter,
       setDetailCharacter,
       comics,
@@ -70,7 +78,15 @@ export const AppConfigProvider = ({ children }: { children: ReactNode }) => {
       searchValue,
       setSearchValue
     }),
-    [characters, comics, detailCharacter, favCharacters, isLoading, searchValue]
+    [
+      characters,
+      comics,
+      detailCharacter,
+      favCharacters,
+      filteredCharacters,
+      isLoading,
+      searchValue
+    ]
   );
 
   return (
