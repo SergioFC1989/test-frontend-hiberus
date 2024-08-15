@@ -1,5 +1,5 @@
-import { CHARACTER_LOCALSTORAGE_KEY } from "@/api/constants";
 import { useAppConfig } from "@/contexts/app-config-context";
+import { CHARACTER_LOCALSTORAGE_KEY } from "@/lib/constants";
 import { Character } from "@/types";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useCache } from "./useCache";

@@ -1,7 +1,7 @@
 "use server";
 
-import { Home } from "@/views/home";
+import { Characters } from "@/views/characters";
 
-const Page = () => <Home />;
+const Page = () => <Characters />;
 
 export default Page;

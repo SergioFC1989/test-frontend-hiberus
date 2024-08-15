@@ -5,7 +5,8 @@ import { CharactersProps, ComicProps, DetailCharacterProps } from "../types";
 import {
   CHARACTER_COMIC_CACHE_KEY,
   CHARACTER_DETAIL_CACHE_KEY,
-  CHARACTERS_CACHE_KEY
+  CHARACTERS_CACHE_KEY,
+  FILTERED_CHARACTERS_CACHE_KEY
 } from "./constants";
 import { fetchData } from "./utils";
 
@@ -13,6 +14,16 @@ export const getCharacters = cache(async () => {
   const response: CharactersProps = await fetchData("characters");
   return response;
 }, [CHARACTERS_CACHE_KEY]);
+
+export const getFilteredCharacters = cache(
+  async (nameStartsWith: string) => {
+    const response: CharactersProps = await fetchData("characters", true, {
+      nameStartsWith
+    });
+    return response;
+  },
+  [FILTERED_CHARACTERS_CACHE_KEY]
+);
 
 export const getDetailCharacter = cache(
   async (id: string) => {
