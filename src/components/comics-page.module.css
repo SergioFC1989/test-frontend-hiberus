@@ -39,14 +39,6 @@
   }
 }
 
-@media (max-width: 560px) {
-  .comic {
-    justify-content: center;
-    flex-direction: column;
-    flex-wrap: wrap;
-  }
-}
-
 @media (max-width: 391px) {
   .container {
     align-items: center;

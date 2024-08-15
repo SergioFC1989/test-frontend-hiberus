@@ -8,7 +8,6 @@ import { CustomLoader } from "./custom-loader";
 interface CharacterDetailPageProps {
   data: Character;
   favCharacters: Character[] | null;
-  isLoading?: boolean;
   onClickFav?: (character: Character) => void;
 }
 
@@ -25,7 +24,6 @@ interface CharacterDetailPageProps {
 export const CharacterDetailPage = ({
   data,
   favCharacters,
-  isLoading,
   onClickFav
 }: CharacterDetailPageProps): JSX.Element => {
   const isFav = !!favCharacters?.find((item) => item?.id === data?.id);
@@ -35,12 +33,12 @@ export const CharacterDetailPage = ({
 
   return (
     <div className={styles.container}>
-      {isLoading ? (
+      {!data ? (
         <CustomLoader color="light" />
       ) : (
         <div className={styles.frame}>
           <Image
-            src={image}
+            src={image ?? ""}
             className={styles.image}
             alt="character-detail-page"
             width={500}

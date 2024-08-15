@@ -10,15 +10,13 @@ interface DetailCharacterProps {
 }
 
 export const DetailCharacter = ({ id }: DetailCharacterProps) => {
-  const { detailCharacter, comics, isLoading, isLoadingComic } =
-    useDetailCharacter(id);
+  const { detailCharacter, comics, isLoadingComic } = useDetailCharacter(id);
   const { handleSaveFavCharacter, favCharacters } = useFavoriteCharacters();
 
   return (
     <div>
       <CharacterDetailPage
         data={detailCharacter?.data.results[0]!}
-        isLoading={isLoading}
         favCharacters={favCharacters}
         onClickFav={handleSaveFavCharacter}
       />

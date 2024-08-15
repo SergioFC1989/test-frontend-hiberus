@@ -12,7 +12,7 @@ const handleFilteredCharacters = async (
     const response = await getFilteredCharacters(query);
     res.status(200).json(response);
   } catch (error) {
-    res.status(500).json({ error: "Failed to fetch characters" });
+    res.status(500).json({ error: "Failed to fetch filtered characters" });
   }
 };
 
