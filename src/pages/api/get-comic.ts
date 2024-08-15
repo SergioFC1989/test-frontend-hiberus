@@ -3,10 +3,7 @@
 import { getComic } from "@/lib/actions";
 import { NextApiRequest, NextApiResponse } from "next";
 
-const handleComic = async (
-  req: NextApiRequest,
-  res: NextApiResponse
-) => {
+const handleComic = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const query = req.query.url as string;
     const response = await getComic(query);
