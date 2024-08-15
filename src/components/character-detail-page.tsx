@@ -3,7 +3,6 @@ import Image from "next/image";
 import type { JSX } from "react";
 import styles from "./character-detail-page.module.css";
 import { CustomButtonFav } from "./custom-button-fav";
-import { CustomCornerCard } from "./custom-corner-card";
 import { CustomLoader } from "./custom-loader";
 
 interface CharacterDetailPageProps {
@@ -63,8 +62,6 @@ export const CharacterDetailPage = ({
           </div>
         </div>
       )}
-
-      <CustomCornerCard width={30} height={30} />
     </div>
   );
 };

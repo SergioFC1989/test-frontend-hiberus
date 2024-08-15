@@ -1,7 +1,7 @@
 "use client";
 
 import { useAppConfig } from "@/contexts/app-config-context";
-import { getComic, getDetailCharacter } from "@/pages/api/actions";
+import { getComic, getDetailCharacter } from "@/lib/actions";
 import { useCallback, useEffect, useState } from "react";
 
 export const useDetailCharacter = (id: string) => {

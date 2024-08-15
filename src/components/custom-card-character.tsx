@@ -3,7 +3,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { CustomButtonFav } from "./custom-button-fav";
 import styles from "./custom-card-character.module.css";
-import { CustomCornerCard } from "./custom-corner-card";
 
 interface CustomCardCharacterProps {
   data: Character;
@@ -36,7 +35,6 @@ export const CustomCardCharacter = ({
             onClick={onClick}
           />
         </div>
-        <CustomCornerCard />
       </footer>
     </div>
   );
