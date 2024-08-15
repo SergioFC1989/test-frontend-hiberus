@@ -30,12 +30,6 @@ export const useCharacters = () => {
 
   useEffect(() => {
     handleFetchCharacters();
-
-    return () => {
-      if (controllerRef.current) {
-        controllerRef.current.abort();
-      }
-    };
   }, [handleFetchCharacters]);
 
   return {
