@@ -3,7 +3,13 @@ import { fetcher } from "@/lib/utils";
 import { useCallback, useEffect, useRef } from "react";
 
 export const useCharacters = () => {
-  const { characters, setCharacters, isLoading, setIsLoading } = useAppConfig();
+  const {
+    characters,
+    setCharacters,
+    isLoading,
+    setIsLoading,
+    filteredCharacters
+  } = useAppConfig();
   const controllerRef = useRef<AbortController | null>(null);
 
   const handleFetchCharacters = useCallback(async () => {
@@ -34,6 +40,7 @@ export const useCharacters = () => {
 
   return {
     characters: characters?.data.results,
+    filteredCharacters: filteredCharacters?.data.results,
     isLoading
   };
 };

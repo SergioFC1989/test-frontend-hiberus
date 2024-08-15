@@ -5,14 +5,14 @@ import { useCharacters } from "@/hooks/useCharacters";
 import { useFavoriteCharacters } from "@/hooks/useFavoriteCharacters";
 
 export const Characters = () => {
-  const { characters, isLoading } = useCharacters();
+  const { characters, filteredCharacters, isLoading } = useCharacters();
   const { handleSaveFavCharacter, favCharacters } = useFavoriteCharacters();
 
   return (
     <CharacterSearchPage
       isLoading={isLoading}
       favCharacters={favCharacters}
-      filteredCharacters={characters}
+      filteredCharacters={filteredCharacters ?? characters}
       onClickFav={handleSaveFavCharacter}
     />
   );
