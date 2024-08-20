@@ -23,6 +23,7 @@ export const ButtonFavorite = ({
 
   return (
     <button
+      data-testid="button-favorite"
       className={styles.containerButton}
       disabled={disabled}
       onClick={_onClick}

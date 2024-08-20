@@ -6,7 +6,7 @@ import type { JSX } from "react";
 import styles from "./character-detail.module.css";
 
 interface CharacterDetailProps {
-  data: Character;
+  data: Character | null;
   favCharacters: Character[] | null;
   onClickFav?: (character: Character) => void;
 }

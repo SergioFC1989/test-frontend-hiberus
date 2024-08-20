@@ -23,6 +23,7 @@ export const TextInputSearch = ({
       />
       <input
         type="text"
+        data-testid="search-input"
         className={styles.textInputSearch}
         placeholder="SEARCH A CHARACTER..."
         value={value}

@@ -33,8 +33,8 @@ export const useCharacters = () => {
   }, [handleFetchCharacters]);
 
   return {
-    characters: characters?.data.results,
-    filteredCharacters: filteredCharacters?.data.results,
+    characters: characters && characters?.data.results,
+    filteredCharacters: filteredCharacters && filteredCharacters?.data.results,
     isLoading
   };
 };

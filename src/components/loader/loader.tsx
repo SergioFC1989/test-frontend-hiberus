@@ -13,5 +13,7 @@ export const Loader = ({ color }: { color: "dark" | "light" }) => {
     }
   }, [_color]);
 
-  return <span ref={colorRef} className={styles.loader}></span>;
+  return (
+    <span data-testId="loader" ref={colorRef} className={styles.loader}></span>
+  );
 };

@@ -8,17 +8,19 @@ interface CardCharacterProps {
   data: Character;
   isActive: boolean;
   onClick?: () => void;
+  testId?: string;
 }
 
 export const CardCharacter = ({
   data,
   isActive,
+  testId,
   onClick
 }: CardCharacterProps) => {
   const image = `${data.thumbnail.path}.${data.thumbnail.extension}`;
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} data-testId={testId}>
       <section className={styles.image}>
         <Link href={`/detail-character/${data.id}`}>
           <Image src={image} alt={data.name} width={175} height={175} />

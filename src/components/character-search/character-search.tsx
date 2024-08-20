@@ -37,6 +37,7 @@ export const CharacterSearch = ({
 
               return (
                 <CardCharacter
+                  testId="card-character"
                   key={character.id}
                   data={character}
                   isActive={isFav}
