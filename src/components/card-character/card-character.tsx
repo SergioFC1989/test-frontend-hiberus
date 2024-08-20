@@ -1,20 +1,20 @@
+import { ButtonFavorite } from "@/components/button-favorite/button-favorite";
 import { Character } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
-import { CustomButtonFav } from "./custom-button-fav";
-import styles from "./custom-card-character.module.css";
+import styles from "./card-character.module.css";
 
-interface CustomCardCharacterProps {
+interface CardCharacterProps {
   data: Character;
   isActive: boolean;
   onClick?: () => void;
 }
 
-export const CustomCardCharacter = ({
+export const CardCharacter = ({
   data,
   isActive,
   onClick
-}: CustomCardCharacterProps) => {
+}: CardCharacterProps) => {
   const image = `${data.thumbnail.path}.${data.thumbnail.extension}`;
 
   return (
@@ -28,7 +28,7 @@ export const CustomCardCharacter = ({
       <footer className={styles.footer}>
         <div className={styles.elementsFooter}>
           <h4 className={styles.footerName}>{data.name.toUpperCase()}</h4>
-          <CustomButtonFav
+          <ButtonFavorite
             isActive={isActive}
             width={16}
             height={16}

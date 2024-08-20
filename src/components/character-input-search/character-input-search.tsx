@@ -1,6 +1,6 @@
+import { TextInputSearch } from "@/components/text-input-search/text-input-search";
 import { useCharacterInputSearch } from "@/hooks/useCharacterInputSearch";
 import styles from "./character-input-search.module.css";
-import { CustomTextInputSearch } from "./custom-text-input-search";
 
 export const CharacterInputSearch = ({ results }: { results: number }) => {
   const { isLoading, searchValue, setSearchValue, handleFilterCharacters } =
@@ -8,7 +8,7 @@ export const CharacterInputSearch = ({ results }: { results: number }) => {
 
   return (
     <div className={styles.search}>
-      <CustomTextInputSearch
+      <TextInputSearch
         value={searchValue.toUpperCase()}
         onChange={(e) => setSearchValue(e.target.value)}
         onKeyUp={handleFilterCharacters}

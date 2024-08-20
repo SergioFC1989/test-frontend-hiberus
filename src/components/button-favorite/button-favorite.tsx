@@ -1,8 +1,6 @@
-"use client";
+import styles from "./button-favorite.module.css";
 
-import styles from "./custom-button-fav.module.css";
-
-interface CustomButtonFavProps {
+interface ButtonFavoriteProps {
   width?: number;
   height?: number;
   disabled?: boolean;
@@ -10,13 +8,13 @@ interface CustomButtonFavProps {
   onClick?: () => void;
 }
 
-export const CustomButtonFav = ({
+export const ButtonFavorite = ({
   width = 24,
   height = 24,
   disabled = false,
   isActive = false,
   onClick
-}: CustomButtonFavProps) => {
+}: ButtonFavoriteProps) => {
   const _onClick = () => {
     onClick && onClick();
   };

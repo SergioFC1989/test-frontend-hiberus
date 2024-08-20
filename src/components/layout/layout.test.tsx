@@ -1,21 +1,21 @@
+import { Layout } from "@/components/layout/layout";
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
-import { LayoutPage } from "./layout-page";
 
 vi.mock("../hooks/useFavoriteCharacters.ts", () => ({
   useFavoriteCharacters: () => ({ favCharacters: [] }),
 }));
 
 
-describe("LayoutPage", () => {
+describe("Layout", () => {
   it("should render the logo", () => {
-    render(<LayoutPage>{<div></div>}</LayoutPage>);
+    render(<Layout>{<div></div>}</Layout>);
     const logo = screen.getByAltText("logo-marvel-svg");
     expect(logo).toBeInTheDocument();
   });
 
   it("should render the favorite button", () => {
-    render(<LayoutPage>{<div></div>}</LayoutPage>);
+    render(<Layout>{<div></div>}</Layout>);
     const favoriteButton = screen.getByTestId("header-link");
     expect(favoriteButton).toBeInTheDocument();
   });

@@ -1,3 +1,5 @@
+"use client";
+
 import { useAppConfig } from "@/contexts/app-config-context";
 import { CHARACTER_LOCALSTORAGE_KEY } from "@/lib/constants";
 import { Character } from "@/types";

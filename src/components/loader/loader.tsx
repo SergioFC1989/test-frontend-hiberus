@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import styles from "./custom-loader.module.css";
+import styles from "./loader.module.css";
 
-export const CustomLoader = ({ color }: { color: "dark" | "light" }) => {
+export const Loader = ({ color }: { color: "dark" | "light" }) => {
   const colorRef = useRef<HTMLSpanElement>(null);
   const _color = color === "dark" ? "black" : "white";
 

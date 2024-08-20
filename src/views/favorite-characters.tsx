@@ -1,6 +1,6 @@
 "use client";
 
-import { CharacterSearchPage } from "@/components/character-search-page";
+import { CharacterSearch } from "@/components/character-search/character-search";
 import { useFavoriteCharacters } from "@/hooks/useFavoriteCharacters";
 
 export const FavoriteCharacters = () => {
@@ -12,7 +12,7 @@ export const FavoriteCharacters = () => {
   } = useFavoriteCharacters();
 
   return (
-    <CharacterSearchPage
+    <CharacterSearch
       title="FAVORITES"
       isLoading={isLoading}
       favCharacters={favCharacters}

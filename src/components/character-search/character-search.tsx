@@ -1,10 +1,10 @@
-import { CustomCardCharacter } from "@/components/custom-card-character";
-import { CustomLoader } from "@/components/custom-loader";
+import { CardCharacter } from "@/components/card-character/card-character";
+import { CharacterInputSearch } from "@/components/character-input-search/character-input-search";
+import { Loader } from "@/components/loader/loader";
 import { Character } from "@/types";
-import { CharacterInputSearch } from "./character-input-search";
-import styles from "./character-search-page.module.css";
+import styles from "./character-search.module.css";
 
-interface CharacterSearchPageProps {
+interface CharacterSearchProps {
   title?: string;
   isLoading?: boolean;
   favCharacters: Character[] | null;
@@ -13,20 +13,20 @@ interface CharacterSearchPageProps {
   onClickFav?: (character: Character) => void;
 }
 
-export const CharacterSearchPage = ({
+export const CharacterSearch = ({
   title = "",
   isLoading,
   favCharacters,
   filteredCharacters,
   results = 0,
   onClickFav
-}: CharacterSearchPageProps) => {
+}: CharacterSearchProps) => {
   return (
     <div className={styles.container}>
       <h2>{title}</h2>
       <CharacterInputSearch results={results} />
       {isLoading ? (
-        <CustomLoader color="dark" />
+        <Loader color="dark" />
       ) : (
         <div className={styles.characters}>
           {filteredCharacters && filteredCharacters.length ? (
@@ -36,7 +36,7 @@ export const CharacterSearchPage = ({
               );
 
               return (
-                <CustomCardCharacter
+                <CardCharacter
                   key={character.id}
                   data={character}
                   isActive={isFav}

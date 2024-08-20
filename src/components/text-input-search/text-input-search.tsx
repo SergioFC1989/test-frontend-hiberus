@@ -1,17 +1,17 @@
 import Image from "next/image";
-import styles from "./custom-text-input-search.module.css";
+import styles from "./text-input-search.module.css";
 
-interface CustomTextInputSearchProps {
+interface TextInputSearchProps {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onKeyUp: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   value: string;
 }
 
-export const CustomTextInputSearch = ({
+export const TextInputSearch = ({
   onChange,
   onKeyUp,
   value
-}: CustomTextInputSearchProps) => {
+}: TextInputSearchProps) => {
   return (
     <div className={styles.container}>
       <Image
