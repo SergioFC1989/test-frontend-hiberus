@@ -9,6 +9,7 @@ interface ComicListProps {
 }
 
 export const ComicList = ({ comics, isLoading }: ComicListProps) => {
+  console.log(isLoading);
   return (
     <section className={styles.container}>
       <h1>COMICS</h1>

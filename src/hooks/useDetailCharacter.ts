@@ -2,34 +2,29 @@
 
 import { useAppConfig } from "@/contexts/app-config-context";
 import { fetcher } from "@/lib/utils";
-
 import { useCallback, useEffect, useRef, useState } from "react";
 
 export const useDetailCharacter = (id: string) => {
-  const {
-    detailCharacter,
-    setDetailCharacter,
-    comics,
-    setComics,
-    isLoading,
-    setIsLoading
-  } = useAppConfig();
+  const { detailCharacter, setDetailCharacter, comics, setComics } =
+    useAppConfig();
 
-  const controllerDetailRef = useRef<AbortController | null>(null);
-  const controllerComicRef = useRef<AbortController | null>(null);
+  const controllersDetailRef = useRef<AbortController[]>([]);
+  const controllersComicRef = useRef<AbortController[]>([]);
 
-  const [isLoadingComic, setIsLoadingComic] = useState(false);
+  const [isLoadingDetail, setIsLoadingDetail] = useState(true);
+  const [isLoadingComic, setIsLoadingComic] = useState(true);
 
   const handleImageComics = useCallback(async () => {
-    setIsLoadingComic(true);
     setTimeout(async () => {
       try {
         const promises =
           detailCharacter?.data.results[0]?.comics.items.map(async (item) => {
-            controllerComicRef.current = new AbortController();
+            const controller = new AbortController();
+            controllersComicRef.current.push(controller);
+            setIsLoadingComic(true);
             const response = await fetcher(
               `/api/get-comic?url=${item.resourceURI}`,
-              controllerComicRef.current?.signal
+              controller.signal
             );
             const { path, extension } = response.data.results[0].thumbnail;
             const thumbnail = `${path}.${extension}`;
@@ -49,45 +44,52 @@ export const useDetailCharacter = (id: string) => {
 
   const handleFetchSingleCharacter = useCallback(async () => {
     try {
-      setIsLoading(true);
-      controllerDetailRef.current = new AbortController();
+      const controller = new AbortController();
+      controllersDetailRef.current.push(controller);
       const response = await fetcher(
         `/api/get-detail-character?id=${id}`,
-        controllerDetailRef.current?.signal
+        controller.signal
       );
       setDetailCharacter(response);
     } catch (error) {
       console.error("Error to get single character");
     } finally {
-      setIsLoading(false);
+      setIsLoadingDetail(false);
     }
-  }, [id, setDetailCharacter, setIsLoading]);
+  }, [id, setDetailCharacter, setIsLoadingDetail]);
 
   useEffect(() => {
     handleFetchSingleCharacter();
 
     return () => {
+      if (controllersDetailRef.current.length) {
+        controllersDetailRef.current.forEach((controller) =>
+          controller.abort()
+        );
+        controllersDetailRef.current = [];
+      }
+
       setDetailCharacter(null);
-      setIsLoading(false);
     };
-  }, [handleFetchSingleCharacter, setDetailCharacter, setIsLoading]);
+  }, [handleFetchSingleCharacter, setDetailCharacter]);
 
   useEffect(() => {
     handleImageComics();
 
     return () => {
-      setComics([]);
-      setIsLoadingComic(false);
-      if (controllerComicRef.current) {
-        controllerComicRef.current.abort();
+      if (controllersComicRef.current.length) {
+        controllersComicRef.current.forEach((controller) => controller.abort());
+        controllersComicRef.current = [];
       }
+
+      setComics([]);
     };
-  }, [handleImageComics, setComics, setIsLoadingComic]);
+  }, [handleImageComics, setComics]);
 
   return {
     detailCharacter,
     comics,
-    isLoading,
+    isLoadingDetail,
     isLoadingComic
   };
 };
