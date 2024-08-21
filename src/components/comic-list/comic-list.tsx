@@ -12,8 +12,10 @@ export const ComicList = ({ comics, isLoading }: ComicListProps) => {
   return (
     <section className={styles.container}>
       <h1>COMICS</h1>
-      {isLoading ? (
-        <Loader color="dark" />
+      {!isLoading ? (
+        <div className={styles.loader}>
+          <Loader color="dark" />
+        </div>
       ) : (
         <div className={styles.comic}>
           {!comics.length ? (

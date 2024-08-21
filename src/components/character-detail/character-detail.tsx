@@ -34,7 +34,9 @@ export const CharacterDetail = ({
   return (
     <div className={styles.container}>
       {!data ? (
-        <Loader color="light" />
+        <div className={styles.loader}>
+          <Loader color="light" />
+        </div>
       ) : (
         <div className={styles.frame}>
           <Image

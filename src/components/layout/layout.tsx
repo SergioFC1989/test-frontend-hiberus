@@ -15,7 +15,7 @@ export const Layout = ({ children }: LayoutProps) => {
   return (
     <main>
       <header className={styles.containerHeader}>
-        <Link data-testid="header-link" className={styles.link} href="/">
+        <Link data-testId="header-link" className={styles.link} href="/">
           <Image
             className={styles.logo}
             src="/image/logo-marvel.svg"
