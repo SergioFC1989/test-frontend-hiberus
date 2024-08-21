@@ -1,7 +1,7 @@
 "use client";
 
-import { CharacterDetailPage } from "@/components/character-detail-page";
-import { ComicsPage } from "@/components/comics-page";
+import { CharacterDetail } from "@/components/character-detail/character-detail";
+import { ComicList } from "@/components/comic-list/comic-list";
 import { useDetailCharacter } from "@/hooks/useDetailCharacter";
 import { useFavoriteCharacters } from "@/hooks/useFavoriteCharacters";
 
@@ -15,12 +15,12 @@ export const DetailCharacter = ({ id }: DetailCharacterProps) => {
 
   return (
     <div>
-      <CharacterDetailPage
+      <CharacterDetail
         data={detailCharacter?.data.results[0]!}
         favCharacters={favCharacters}
         onClickFav={handleSaveFavCharacter}
       />
-      <ComicsPage comics={comics} isLoading={isLoadingComic} />
+      <ComicList comics={comics} isLoading={isLoadingComic} />
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import { LayoutPage } from "@/components/layout-page";
+import { Layout } from "@/components/layout/layout";
 import { AppConfigProvider } from "@/contexts/app-config-context";
 import type { Metadata } from "next";
 import { Roboto_Condensed } from "next/font/google";
@@ -20,7 +20,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={robotoCondensed.className}>
         <AppConfigProvider>
-          <LayoutPage>{children}</LayoutPage>
+          <Layout>{children}</Layout>
         </AppConfigProvider>
       </body>
     </html>

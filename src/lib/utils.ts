@@ -1,6 +1,6 @@
+import { URL_BASE } from "@/lib/constants";
 import cryptoJS from "crypto-js";
 import qs from "qs";
-import { URL_BASE } from "./constants";
 
 const getUnixTimestamp = () => {
   const date = new Date();

@@ -1,19 +1,21 @@
+import { Loader } from "@/components/loader/loader";
 import { ComicPage } from "@/types";
 import Image from "next/image";
-import styles from "./comics-page.module.css";
-import { CustomLoader } from "./custom-loader";
+import styles from "./comic-list.module.css";
 
-interface ComicsPageProps {
+interface ComicListProps {
   comics: ComicPage[] | [];
   isLoading?: boolean;
 }
 
-export const ComicsPage = ({ comics, isLoading }: ComicsPageProps) => {
+export const ComicList = ({ comics, isLoading }: ComicListProps) => {
   return (
     <section className={styles.container}>
       <h1>COMICS</h1>
-      {isLoading ? (
-        <CustomLoader color="dark" />
+      {!isLoading ? (
+        <div className={styles.loader}>
+          <Loader color="dark" />
+        </div>
       ) : (
         <div className={styles.comic}>
           {!comics.length ? (

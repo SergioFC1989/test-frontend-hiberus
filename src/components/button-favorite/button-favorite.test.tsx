@@ -1,16 +1,16 @@
 import { fireEvent, render } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
-import { CustomButtonFav } from "./custom-button-fav";
+import { ButtonFavorite } from "./button-favorite";
 
-describe("CustomButtonFav", () => {
+describe("ButtonFavorite", () => {
   it("should renders without errors", () => {
-    render(<CustomButtonFav isActive />);
+    render(<ButtonFavorite isActive />);
   });
 
   it("should calls onClick when clicked", () => {
     const onClickMock = vi.fn();
     const { getByRole } = render(
-      <CustomButtonFav isActive={false} onClick={onClickMock} />
+      <ButtonFavorite isActive={false} onClick={onClickMock} />
     );
 
     fireEvent.click(getByRole("button"));

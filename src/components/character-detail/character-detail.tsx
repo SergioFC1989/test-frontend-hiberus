@@ -1,12 +1,12 @@
+import { ButtonFavorite } from "@/components/button-favorite/button-favorite";
+import { Loader } from "@/components/loader/loader";
 import { Character } from "@/types";
 import Image from "next/image";
 import type { JSX } from "react";
-import styles from "./character-detail-page.module.css";
-import { CustomButtonFav } from "./custom-button-fav";
-import { CustomLoader } from "./custom-loader";
+import styles from "./character-detail.module.css";
 
-interface CharacterDetailPageProps {
-  data: Character;
+interface CharacterDetailProps {
+  data: Character | null;
   favCharacters: Character[] | null;
   onClickFav?: (character: Character) => void;
 }
@@ -14,18 +14,18 @@ interface CharacterDetailPageProps {
 /**
  * Renders the character detail page.
  *
- * @param {CharacterDetailPageProps} props - The component props.
+ * @param {CharacterDetailProps} props - The component props.
  * @param {Character} props.data - The character data.
  * @param {Character[]} props.favCharacters - The favorite characters list.
  * @param {boolean} props.isLoading - Indicates if the data is loading.
  * @param {Function} props.onClickFav - The function to handle favorite button click.
  * @returns {JSX.Element} The character detail page component.
  */
-export const CharacterDetailPage = ({
+export const CharacterDetail = ({
   data,
   favCharacters,
   onClickFav
-}: CharacterDetailPageProps): JSX.Element => {
+}: CharacterDetailProps): JSX.Element => {
   const isFav = !!favCharacters?.find((item) => item?.id === data?.id);
   const image = data
     ? `${data?.thumbnail.path}.${data?.thumbnail.extension}`
@@ -34,7 +34,9 @@ export const CharacterDetailPage = ({
   return (
     <div className={styles.container}>
       {!data ? (
-        <CustomLoader color="light" />
+        <div className={styles.loader}>
+          <Loader color="light" />
+        </div>
       ) : (
         <div className={styles.frame}>
           <Image
@@ -48,7 +50,7 @@ export const CharacterDetailPage = ({
             <div className={styles.details}>
               <div className={styles.containerName}>
                 <h1 className={styles.name}>{data?.name.toUpperCase()}</h1>
-                <CustomButtonFav
+                <ButtonFavorite
                   isActive={isFav}
                   onClick={() => onClickFav && onClickFav(data)}
                 />

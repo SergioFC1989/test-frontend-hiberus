@@ -4,7 +4,14 @@
   background-color: var(--secondary-color);
   display: flex;
   justify-content: flex-end;
-  clip-path: polygon(50% 0%, 100% 0, 100% 35%, 100% 80%, 96% 100%, 50% 100%, 0 100%, 0% 70%, 0% 35%, 0 0);
+  clip-path: var(--corner-medium)
+}
+
+.loader {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .frame {
@@ -63,7 +70,7 @@
 @media (max-width: 1511px) and (min-width: 561px) {
   .container {
     height: 278px;
-    clip-path: polygon(50% 0%, 100% 0, 100% 35%, 100% 80%, 94% 100%, 50% 100%, 0 100%, 0% 70%, 0% 35%, 0 0)
+    clip-path: var(--corner-medium);
   }
 
   .frame {
@@ -79,7 +86,7 @@
   .container {
     height: 100%;
     flex-direction: column;
-    clip-path: polygon(50% 0%, 100% 0, 100% 35%, 100% 94%, 94% 100%, 50% 100%, 0 100%, 0% 70%, 0% 35%, 0 0);
+    clip-path: var(--corner-small);
   }
 
   .frame {
@@ -93,5 +100,9 @@
 
   .image {
     width: 100%;
+  }
+
+  .loader {
+    height: 500px;
   }
 }

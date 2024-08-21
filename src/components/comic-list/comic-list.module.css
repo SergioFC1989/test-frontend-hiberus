@@ -6,13 +6,20 @@
   padding: 2%;
 }
 
+.loader {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .comic {
   display: flex;
   width: 100%;
   flex-direction: row;
   overflow: auto;
   gap: 20px;
-  align-items: center;
+  align-items: start;
   scrollbar-width: thin;
   scrollbar-color: var(--primary-color) white;
   padding-bottom: 16px;
@@ -35,12 +42,17 @@
 
 @media (min-width: 1280px) {
   .container {
-    padding: 2% 25%;
+    padding: 4% 25%;
   }
 }
 
-@media (max-width: 391px) {
+@media (max-width: 560px) {
   .container {
-    align-items: center;
+    padding: 10% 1%;
+    gap: 10px;
+  }
+
+  .loader {
+    height: 120px;
   }
 }
