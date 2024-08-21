@@ -3,9 +3,8 @@ import { render, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 
 vi.mock("../hooks/useFavoriteCharacters.ts", () => ({
-  useFavoriteCharacters: () => ({ favCharacters: [] }),
+  useFavoriteCharacters: () => ({ favCharacters: [] })
 }));
-
 
 describe("Layout", () => {
   it("should render the logo", () => {

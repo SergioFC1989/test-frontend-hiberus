@@ -13,10 +13,7 @@ describe("CharacterDetail", () => {
 
   it("should render the character details when data is available", () => {
     const { getByText, getByAltText } = render(
-      <CharacterDetail
-        data={mockCharacter}
-        favCharacters={[mockCharacter]}
-      />
+      <CharacterDetail data={mockCharacter} favCharacters={[mockCharacter]} />
     );
 
     expect(getByAltText("character-detail-page")).toBeInTheDocument();
