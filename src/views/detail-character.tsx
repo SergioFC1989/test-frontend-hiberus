@@ -16,7 +16,7 @@ export const DetailCharacter = ({ id }: DetailCharacterProps) => {
   return (
     <div>
       <CharacterDetail
-        data={detailCharacter?.data.results[0]!}
+        data={detailCharacter!}
         favCharacters={favCharacters}
         onClickFav={handleSaveFavCharacter}
       />

@@ -26,6 +26,7 @@ export const CharacterDetail = ({
   favCharacters,
   onClickFav
 }: CharacterDetailProps): JSX.Element => {
+  console.log(data);
   const isFav = !!favCharacters?.find((item) => item?.id === data?.id);
   const image = data
     ? `${data?.thumbnail.path}.${data?.thumbnail.extension}`

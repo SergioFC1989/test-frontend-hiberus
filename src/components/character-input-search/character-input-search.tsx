@@ -3,14 +3,14 @@ import { useCharacterInputSearch } from "@/hooks/useCharacterInputSearch";
 import styles from "./character-input-search.module.css";
 
 export const CharacterInputSearch = ({ results }: { results: number }) => {
-  const { isLoading, searchValue, setSearchValue, handleFilterCharacters } =
+  const { isLoading, searchValue, handleOnChange, handleFilterCharacters } =
     useCharacterInputSearch();
 
   return (
     <div className={styles.search}>
       <TextInputSearch
         value={searchValue.toUpperCase()}
-        onChange={(e) => setSearchValue(e.target.value)}
+        onChange={handleOnChange}
         onKeyUp={handleFilterCharacters}
       />
       {!isLoading ? <p>{results} RESULTS</p> : <div />}

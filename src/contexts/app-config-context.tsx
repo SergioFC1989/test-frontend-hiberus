@@ -1,93 +1,22 @@
 "use client";
 
 import {
-  Character,
-  CharactersProps,
-  ComicPage,
-  DetailCharacterProps
-} from "@/types";
-import {
   createContext,
-  Dispatch,
   ReactNode,
-  SetStateAction,
   useContext,
   useMemo,
-  useState
+  useReducer
 } from "react";
+import { appConfigReducer } from "./reducers/app-config-reducer";
+import { appConfigInitialState } from "./states/app-config-initial-state";
+import { AppConfigContextProps } from "./types";
 
-interface AppConfigContextProps {
-  characters: CharactersProps | null;
-  setCharacters: Dispatch<SetStateAction<CharactersProps | null>>;
-  filteredCharacters: CharactersProps | null;
-  setFilteredCharacters: Dispatch<SetStateAction<CharactersProps | null>>;
-  detailCharacter: DetailCharacterProps | null;
-  setDetailCharacter: Dispatch<SetStateAction<DetailCharacterProps | null>>;
-  comics: ComicPage[] | [];
-  setComics: Dispatch<SetStateAction<ComicPage[] | []>>;
-  favCharacters: Character[] | null;
-  setFavCharacters: Dispatch<SetStateAction<Character[] | null>>;
-  isLoading: boolean;
-  setIsLoading: Dispatch<SetStateAction<boolean>>;
-  searchValue: string;
-  setSearchValue: Dispatch<SetStateAction<string>>;
-}
-
-const AppConfigContext = createContext<AppConfigContextProps>({
-  characters: null,
-  setCharacters: () => {},
-  filteredCharacters: null,
-  setFilteredCharacters: () => {},
-  detailCharacter: null,
-  setDetailCharacter: () => {},
-  comics: [],
-  setComics: () => {},
-  favCharacters: null,
-  setFavCharacters: () => {},
-  isLoading: false,
-  setIsLoading: () => {},
-  searchValue: "",
-  setSearchValue: () => {}
-});
+const AppConfigContext = createContext<AppConfigContextProps>(undefined);
 
 export const AppConfigProvider = ({ children }: { children: ReactNode }) => {
-  const [characters, setCharacters] = useState<CharactersProps | null>(null);
-  const [filteredCharacters, setFilteredCharacters] =
-    useState<CharactersProps | null>(null);
-  const [detailCharacter, setDetailCharacter] =
-    useState<DetailCharacterProps | null>(null);
-  const [comics, setComics] = useState<ComicPage[] | []>([]);
-  const [favCharacters, setFavCharacters] = useState<Character[] | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [searchValue, setSearchValue] = useState("");
+  const [state, dispatch] = useReducer(appConfigReducer, appConfigInitialState);
 
-  const values = useMemo(
-    () => ({
-      characters,
-      setCharacters,
-      filteredCharacters,
-      setFilteredCharacters,
-      detailCharacter,
-      setDetailCharacter,
-      comics,
-      setComics,
-      favCharacters,
-      setFavCharacters,
-      isLoading,
-      setIsLoading,
-      searchValue,
-      setSearchValue
-    }),
-    [
-      characters,
-      comics,
-      detailCharacter,
-      favCharacters,
-      filteredCharacters,
-      isLoading,
-      searchValue
-    ]
-  );
+  const values = useMemo(() => ({ state, dispatch }), [state]);
 
   return (
     <AppConfigContext.Provider value={values}>
@@ -96,4 +25,12 @@ export const AppConfigProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
-export const useAppConfig = () => useContext(AppConfigContext);
+export const useAppConfig = () => {
+  const context = useContext(AppConfigContext);
+
+  if (!context) {
+    throw new Error("useAppConfig must be used within an AppConfigProvider");
+  }
+
+  return context;
+};

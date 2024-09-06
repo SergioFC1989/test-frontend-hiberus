@@ -3,22 +3,17 @@ import { fetcher } from "@/lib/utils";
 import { useEffect, useMemo, useRef } from "react";
 
 export const useCharacterInputSearch = () => {
-  const {
-    characters,
-    isLoading,
-    setIsLoading,
-    searchValue,
-    setSearchValue,
-    filteredCharacters,
-    setFilteredCharacters
-  } = useAppConfig();
+  const { state, dispatch } = useAppConfig();
   const controllerRef = useRef<AbortController | null>(null);
 
   const results = useMemo(
     () =>
-      filteredCharacters?.data.results.length ??
-      characters?.data.results.length,
-    [characters?.data.results.length, filteredCharacters?.data.results.length]
+      state.filteredCharacters?.data.results.length ??
+      state.characters?.data.results.length,
+    [
+      state.characters?.data.results.length,
+      state.filteredCharacters?.data.results.length
+    ]
   );
 
   const handleFilterCharacters = async (
@@ -30,28 +25,32 @@ export const useCharacterInputSearch = () => {
       controllerRef.current.abort();
     }
 
-    if (searchValue.length && e.key === "Enter") {
+    if (state.searchValue.length && e.key === "Enter") {
       try {
-        setIsLoading(true);
+        dispatch({ type: "SET_IS_LOADING", payload: true });
         controllerRef.current = new AbortController();
         const response = await fetcher(
-          `/api/get-filtered-characters?nameStartsWith=${searchValue.toLowerCase()}`,
+          `/api/get-filtered-characters?nameStartsWith=${state.searchValue.toLowerCase()}`,
           controllerRef.current?.signal
         );
-        setFilteredCharacters(response);
+        dispatch({ type: "SET_FILTERED_CHARACTERS", payload: response });
       } catch (error) {
         console.error("Error to get filtered characters");
       } finally {
-        setIsLoading(false);
+        dispatch({ type: "SET_IS_LOADING", payload: false });
       }
     }
   };
 
+  const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch({ type: "SET_SEARCH_VALUE", payload: e.target.value });
+  };
+
   useEffect(() => {
-    if (!searchValue.length) {
-      setFilteredCharacters(null);
+    if (!state.searchValue.length) {
+      dispatch({ type: "SET_FILTERED_CHARACTERS", payload: state.characters });
     }
-  }, [characters, searchValue.length, setFilteredCharacters]);
+  }, [dispatch, state.characters, state.searchValue.length]);
 
   useEffect(() => {
     return () => {
@@ -62,9 +61,9 @@ export const useCharacterInputSearch = () => {
   }, []);
 
   return {
-    isLoading,
-    searchValue,
-    setSearchValue,
+    isLoading: state.isLoading,
+    searchValue: state.searchValue,
+    handleOnChange,
     handleFilterCharacters,
     results
   };

@@ -21,18 +21,6 @@ vi.mock("@/lib/utils", () => ({
   fetcher: (url: string) => mockFetcher(`http://localhost${url}`)
 }));
 
-const mockCharacters = {
-  data: {
-    results: [mockCharacter]
-  }
-};
-
-const mockFilteredCharacters = {
-  data: {
-    results: [mockCharacter]
-  }
-};
-
 describe("useCharacters", async () => {
   afterEach(() => {
     vi.clearAllMocks();

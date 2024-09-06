@@ -11,14 +11,7 @@ import { useCache } from "./useCache";
  * @returns An object containing the favorite characters and a function to handle saving favorite characters.
  */
 export const useFavoriteCharacters = () => {
-  const {
-    favCharacters,
-    setFavCharacters,
-    filteredCharacters,
-    setFilteredCharacters,
-    searchValue,
-    isLoading
-  } = useAppConfig();
+  const { state, dispatch } = useAppConfig();
   const { cache, handleSaveCache } = useCache(CHARACTER_LOCALSTORAGE_KEY);
 
   const _cache = cache as Character[];
@@ -26,7 +19,7 @@ export const useFavoriteCharacters = () => {
   const handleSaveFavCharacter = useCallback(
     (character: Character) => {
       if (!(_cache !== null && _cache.length > 0)) {
-        setFavCharacters([character]);
+        dispatch({ type: "SET_FAV_CHARACTERS", payload: [character] });
         handleSaveCache([character]);
         return;
       }
@@ -36,35 +29,38 @@ export const useFavoriteCharacters = () => {
       );
 
       if (!foundFavCharacter) {
-        setFavCharacters([..._cache, character]);
+        dispatch({
+          type: "SET_FAV_CHARACTERS",
+          payload: [..._cache, character]
+        });
         handleSaveCache([..._cache, character]);
       } else {
         const removeCharacterFav = _cache?.filter(
           (item: Character) => item.id !== character.id
         );
-        setFavCharacters(removeCharacterFav);
+        dispatch({ type: "SET_FAV_CHARACTERS", payload: removeCharacterFav });
         handleSaveCache(removeCharacterFav);
       }
     },
-    [_cache, handleSaveCache, setFavCharacters]
+    [_cache, dispatch, handleSaveCache]
   );
 
   useEffect(() => {
-    if (!searchValue.length) {
-      setFilteredCharacters(null);
+    if (!state.searchValue.length) {
+      dispatch({ type: "SET_FILTERED_CHARACTERS", payload: state.characters });
     }
-  }, [favCharacters, searchValue.length, setFilteredCharacters]);
+  }, [state.characters, state.searchValue, dispatch]);
 
   useEffect(() => {
     if (_cache !== null && _cache.length > 0) {
-      setFavCharacters(_cache);
+      dispatch({ type: "SET_FAV_CHARACTERS", payload: _cache });
     }
-  }, [_cache, setFavCharacters]);
+  }, [_cache, dispatch]);
 
   return {
-    favCharacters,
+    favCharacters: state.favCharacters,
     handleSaveFavCharacter,
-    filteredCharacters: filteredCharacters?.data.results,
-    isLoading
+    filteredCharacters: state.filteredCharacters?.data.results,
+    isLoading: state.isLoading
   };
 };

@@ -5,8 +5,7 @@ import { fetcher } from "@/lib/utils";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 export const useDetailCharacter = (id: string) => {
-  const { detailCharacter, setDetailCharacter, comics, setComics } =
-    useAppConfig();
+  const { state, dispatch } = useAppConfig();
 
   const controllersDetailRef = useRef<AbortController[]>([]);
   const controllersComicRef = useRef<AbortController[]>([]);
@@ -18,29 +17,31 @@ export const useDetailCharacter = (id: string) => {
     setTimeout(async () => {
       try {
         const promises =
-          detailCharacter?.data.results[0]?.comics.items.map(async (item) => {
-            const controller = new AbortController();
-            controllersComicRef.current.push(controller);
-            setIsLoadingComic(true);
-            const response = await fetcher(
-              `/api/get-comic?url=${item.resourceURI}`,
-              controller.signal
-            );
-            const { path, extension } = response.data.results[0].thumbnail;
-            const thumbnail = `${path}.${extension}`;
+          state.detailCharacter?.data.results[0]?.comics.items.map(
+            async (item) => {
+              const controller = new AbortController();
+              controllersComicRef.current.push(controller);
+              setIsLoadingComic(true);
+              const response = await fetcher(
+                `/api/get-comic?url=${item.resourceURI}`,
+                controller.signal
+              );
+              const { path, extension } = response.data.results[0].thumbnail;
+              const thumbnail = `${path}.${extension}`;
 
-            return { name: item.name, thumbnail };
-          }) || [];
+              return { name: item.name, thumbnail };
+            }
+          ) || [];
 
         const comicsData = await Promise.all(promises);
-        setComics((prev) => [...prev, ...comicsData]);
+        dispatch({ type: "SET_COMICS", payload: comicsData });
       } catch (error) {
         console.error("Error to get comics");
       } finally {
         setIsLoadingComic(false);
       }
     }, 100);
-  }, [detailCharacter?.data.results, setComics, setIsLoadingComic]);
+  }, [dispatch, state.detailCharacter]);
 
   const handleFetchSingleCharacter = useCallback(async () => {
     try {
@@ -50,13 +51,13 @@ export const useDetailCharacter = (id: string) => {
         `/api/get-detail-character?id=${id}`,
         controller.signal
       );
-      setDetailCharacter(response);
+      dispatch({ type: "SET_DETAIL_CHARACTER", payload: response });
     } catch (error) {
       console.error("Error to get single character");
     } finally {
       setIsLoadingDetail(false);
     }
-  }, [id, setDetailCharacter, setIsLoadingDetail]);
+  }, [dispatch, id]);
 
   useEffect(() => {
     handleFetchSingleCharacter();
@@ -69,9 +70,9 @@ export const useDetailCharacter = (id: string) => {
         controllersDetailRef.current = [];
       }
 
-      setDetailCharacter(null);
+      dispatch({ type: "SET_DETAIL_CHARACTER", payload: null });
     };
-  }, [handleFetchSingleCharacter, setDetailCharacter]);
+  }, [dispatch, handleFetchSingleCharacter]);
 
   useEffect(() => {
     handleImageComics();
@@ -82,13 +83,13 @@ export const useDetailCharacter = (id: string) => {
         controllersComicRef.current = [];
       }
 
-      setComics([]);
+      dispatch({ type: "SET_COMICS", payload: [] });
     };
-  }, [handleImageComics, setComics]);
+  }, [dispatch, handleImageComics]);
 
   return {
-    detailCharacter,
-    comics,
+    detailCharacter: state.detailCharacter?.data.results[0],
+    comics: state.comics,
     isLoadingDetail,
     isLoadingComic
   };
